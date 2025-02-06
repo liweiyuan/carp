@@ -12,8 +12,7 @@ char carp_reverse_reg[][5] = {
 /*
   Returns a pointer to a register.
 */
-carp_value *carp_reg_get(carp_value regs[], carp_reg reg)
-{
+carp_value *carp_reg_get(carp_value regs[], carp_reg reg) {
     assert(regs != NULL);
 
     if (reg >= CARP_NUM_REGS)
@@ -25,8 +24,7 @@ carp_value *carp_reg_get(carp_value regs[], carp_reg reg)
 /*
   Set the value in a given register. Fails if register is outside bounds.
 */
-carp_bool carp_reg_set(carp_value regs[], carp_reg reg, carp_value value)
-{
+carp_bool carp_reg_set(carp_value regs[], carp_reg reg, carp_value value) {
     assert(regs != NULL);
 
     carp_value *res = carp_reg_get(regs, reg);
@@ -40,8 +38,7 @@ carp_bool carp_reg_set(carp_value regs[], carp_reg reg, carp_value value)
 /*
   Adds a value to a register.
 */
-carp_bool carp_reg_add(carp_value regs[], carp_reg reg, carp_value value)
-{
+carp_bool carp_reg_add(carp_value regs[], carp_reg reg, carp_value value) {
     assert(regs != NULL);
 
     carp_value *res = carp_reg_get(regs, reg);
@@ -55,8 +52,7 @@ carp_bool carp_reg_add(carp_value regs[], carp_reg reg, carp_value value)
 /*
   Subtracts a value from a register.
 */
-carp_bool carp_reg_sub(carp_value regs[], carp_reg reg, carp_value value)
-{
+carp_bool carp_reg_sub(carp_value regs[], carp_reg reg, carp_value value) {
     assert(regs != NULL);
 
     carp_value *res = carp_reg_get(regs, reg);
@@ -70,8 +66,7 @@ carp_bool carp_reg_sub(carp_value regs[], carp_reg reg, carp_value value)
 /*
   Increments a register.
 */
-carp_bool carp_reg_inc(carp_value regs[], carp_reg reg)
-{
+carp_bool carp_reg_inc(carp_value regs[], carp_reg reg) {
     assert(regs != NULL);
 
     assert(regs != NULL);
@@ -87,8 +82,7 @@ carp_bool carp_reg_inc(carp_value regs[], carp_reg reg)
 /*
   Decrements a register.
 */
-carp_bool carp_reg_dec(carp_value regs[], carp_reg reg)
-{
+carp_bool carp_reg_dec(carp_value regs[], carp_reg reg) {
     assert(regs != NULL);
 
     assert(regs != NULL);
@@ -101,8 +95,7 @@ carp_bool carp_reg_dec(carp_value regs[], carp_reg reg)
     return 0;
 }
 
-void carp_reg_print(carp_value regs[], FILE *fp)
-{
+void carp_reg_print(carp_value regs[], FILE *fp) {
     assert(regs != NULL);
 
     if (fp == NULL)
@@ -119,8 +112,7 @@ void carp_reg_print(carp_value regs[], FILE *fp)
 /*
   Initialize all the registers to value 0.
 */
-void carp_reg_init(carp_value regs[])
-{
+void carp_reg_init(carp_value regs[]) {
     assert(regs != NULL);
 
     for (int i = 0; i < CARP_NUM_REGS; i++)

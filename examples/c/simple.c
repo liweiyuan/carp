@@ -1,7 +1,6 @@
 #include <carp/carp_machine.h>
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     char data[][CARP_HT_KEY_LENGTH] = {"hello", "world"};
 
     // I wish there was a better way to do this.

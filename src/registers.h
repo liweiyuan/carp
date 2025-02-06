@@ -6,8 +6,7 @@
 #include "lib/types.h"
 
 // make register numbers easier on the eyes
-typedef enum
-{
+typedef enum {
     CARP_REG_UNDEF = -1,
 
     // regs 0 through 9 for general use

@@ -1,8 +1,7 @@
 #include "../src/lib/stack.h"
 #include "tests.h"
 
-int main()
-{
+int main() {
     carp_bool status = 0;
     carp_stack s;
     carp_value esp = 0;

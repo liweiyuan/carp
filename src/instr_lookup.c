@@ -71,8 +71,7 @@ register unsigned int len;
         84, 84, 84, 84};
     register int hval = (int)len;
 
-    switch (hval)
-    {
+    switch (hval) {
     default:
         hval += asso_values[(unsigned char)str[2]];
     /*FALLTHROUGH*/
@@ -120,12 +119,10 @@ register const char *str;
         CARP_I(UNDEF), CARP_I(UNDEF), CARP_I(UNDEF), CARP_I(MOV), CARP_I(UNDEF),
         CARP_I(UNDEF), CARP_I(UNDEF), CARP_I(UNDEF), CARP_I(SUB)};
 
-    if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)
-    {
+    if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH) {
         register int key = hash(str, len);
 
-        if (key <= MAX_HASH_VALUE && key >= 0)
-        {
+        if (key <= MAX_HASH_VALUE && key >= 0) {
             register const char *s = wordlist[key];
 
             if (*str == *s && !strcmp(str + 1, s + 1))

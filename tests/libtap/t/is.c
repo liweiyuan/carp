@@ -1,7 +1,6 @@
 #include "tap.h"
 
-int main()
-{
+int main() {
     setvbuf(stdout, NULL, _IONBF, 0);
     plan(18);
     is("this", "that", "this is that"); /* bang */

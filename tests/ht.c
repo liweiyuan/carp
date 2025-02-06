@@ -1,8 +1,7 @@
 #include "../src/lib/ht.h"
 #include "tests.h"
 
-int main()
-{
+int main() {
     carp_bool status;
     carp_ht h;
     carp_ht_entry *res;

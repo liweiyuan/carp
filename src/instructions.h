@@ -4,8 +4,7 @@
 #define CARP_I(x) CARP_INSTR_##x
 
 // make instruction numbers easier on the eyes
-typedef enum
-{
+typedef enum {
     CARP_I(UNDEF) = -1,
 
     CARP_I(HALT),

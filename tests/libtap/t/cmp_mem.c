@@ -1,7 +1,6 @@
 #include "tap.h"
 
-int main()
-{
+int main() {
     setvbuf(stdout, NULL, _IONBF, 0);
     unsigned char all_0[] = {0, 0, 0, 0};
     unsigned char all_255[] = {255, 255, 255, 255};

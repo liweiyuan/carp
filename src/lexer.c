@@ -20,8 +20,7 @@ static void carp_lex_exit(carp_tok *, carp_ht *, int);
   FUNC is label lookup value.
   INSTR is obvious.
 */
-void carp_lex_lex(carp_machine_state *m, carp_tok *tokens)
-{
+void carp_lex_lex(carp_machine_state *m, carp_tok *tokens) {
     assert(m != NULL);
     assert(tokens != NULL);
 
@@ -30,33 +29,26 @@ void carp_lex_lex(carp_machine_state *m, carp_tok *tokens)
 
     carp_ht_init(&m->labels, 10);
 
-    while (tmp != NULL)
-    {
-        switch (tmp->type)
-        {
-        case CARP_TOK_UNDEF:
-        {
+    while (tmp != NULL) {
+        switch (tmp->type) {
+        case CARP_TOK_UNDEF: {
             fprintf(stderr, "Unknown token <%s>\n", tmp->lexeme);
             carp_lex_exit(tokens, &m->labels, EXIT_FAILURE);
             break;
         }
-        case CARP_TOK_NUM:
-        {
+        case CARP_TOK_NUM: {
             long long num = atoi(tmp->lexeme);
             tmp->value = num;
             break;
         }
-        case CARP_TOK_REG:
-        {
+        case CARP_TOK_REG: {
             carp_reg reg = carp_reg_lookup(tmp->lexeme);
             tmp->value = reg;
             break;
         }
-        case CARP_TOK_LBL:
-        {
+        case CARP_TOK_LBL: {
             carp_bool status = carp_ht_set(&m->labels, tmp->lexeme, tmp->pos);
-            if (status != 0)
-            {
+            if (status != 0) {
                 fprintf(stderr, "Could not make label <%s>\n", tmp->lexeme);
                 carp_lex_exit(tokens, &m->labels, 1);
             }
@@ -65,11 +57,9 @@ void carp_lex_lex(carp_machine_state *m, carp_tok *tokens)
             tmp->value = instr;
             break;
         }
-        case CARP_TOK_FUNC:
-        {
+        case CARP_TOK_FUNC: {
             carp_ht_entry *res = carp_ht_get(&m->labels, tmp->lexeme);
-            if (res == NULL)
-            {
+            if (res == NULL) {
                 fprintf(stderr, "Unknown label <%s>\n", tmp->lexeme);
                 carp_lex_exit(tokens, &m->labels, EXIT_FAILURE);
             }
@@ -77,12 +67,10 @@ void carp_lex_lex(carp_machine_state *m, carp_tok *tokens)
             tmp->value = res->value;
             break;
         }
-        case CARP_TOK_VAR:
-        {
+        case CARP_TOK_VAR: {
             break;
         }
-        case CARP_TOK_INSTR:
-        {
+        case CARP_TOK_INSTR: {
             carp_value instr = carp_instr_lookup(tmp->lexeme);
             tmp->value = instr;
             break;
@@ -101,8 +89,7 @@ void carp_lex_lex(carp_machine_state *m, carp_tok *tokens)
     carp_value code[length];
     tmp = tokens;
 
-    while (tmp != NULL)
-    {
+    while (tmp != NULL) {
         code[tmp->pos] = tmp->value;
         tmp = tmp->next;
     }
@@ -115,14 +102,12 @@ void carp_lex_lex(carp_machine_state *m, carp_tok *tokens)
 /*
   Frees the carp_tok linked list.
 */
-static void carp_lex_cleanup(carp_tok *tokens)
-{
+static void carp_lex_cleanup(carp_tok *tokens) {
     assert(tokens != NULL);
 
     carp_tok *tmp;
 
-    while (tokens != NULL)
-    {
+    while (tokens != NULL) {
         tmp = tokens->next;
         free(tokens);
         tokens = tmp;
@@ -132,8 +117,7 @@ static void carp_lex_cleanup(carp_tok *tokens)
 /*
   Exits cleanly by cleaning up first.
 */
-static void carp_lex_exit(carp_tok *tokens, carp_ht *labels, int code)
-{
+static void carp_lex_exit(carp_tok *tokens, carp_ht *labels, int code) {
     assert(tokens != NULL);
     assert(labels != NULL);
 

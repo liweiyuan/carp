@@ -9,8 +9,7 @@
   Initialize the VM - this includes lots of allocation.
 */
 void carp_vm_init(carp_machine_state *m, long stack_height,
-                  carp_value main_addr)
-{
+                  carp_value main_addr) {
     assert(m != NULL);
     assert(stack_height > 0);
 
@@ -41,27 +40,22 @@ void carp_vm_init(carp_machine_state *m, long stack_height,
  * already been generated).  Would like to rename this at some
  * point.
  */
-void carp_vm_make(carp_machine_state *m)
-{
+void carp_vm_make(carp_machine_state *m) {
     assert(m != NULL);
     assert(&m->labels != NULL);
 
     carp_reg_init(m->regs);
 
     carp_ht_entry *res = carp_ht_get(&m->labels, "main");
-    if (!res)
-    {
+    if (!res) {
         carp_vm_err(m, CARP_VM_NO_MAIN);
-    }
-    else
-    {
+    } else {
         carp_reg_set(m->regs, CARP_IP, res->value - 1);
         m->regs[CARP_RUN] = 1;
     }
 
     bool carp_stack_err = carp_stack_init(&m->stack, &m->regs[CARP_SP], 1);
-    if (carp_stack_err == 1)
-    {
+    if (carp_stack_err == 1) {
         carp_vm_err(m, CARP_STACK_NO_MEM);
     }
 }
@@ -69,8 +63,7 @@ void carp_vm_make(carp_machine_state *m)
 /*
   Allocate space for the code, then load it.
 */
-void carp_vm_load(carp_machine_state *m, carp_value code[], carp_value length)
-{
+void carp_vm_load(carp_machine_state *m, carp_value code[], carp_value length) {
     assert(m != NULL);
 
     m->code = calloc(length, sizeof *code);
@@ -83,8 +76,7 @@ void carp_vm_load(carp_machine_state *m, carp_value code[], carp_value length)
 /*
   Get the next instruction and execute it.
 */
-void carp_vm_eval(carp_machine_state *m)
-{
+void carp_vm_eval(carp_machine_state *m) {
     assert(m != NULL);
 
     carp_reg_inc(m->regs, CARP_IP);
@@ -99,12 +91,10 @@ void carp_vm_eval(carp_machine_state *m)
 /*
   Start the fetch, decode, execute loop, then exit when done.
 */
-carp_value carp_vm_run(carp_machine_state *m)
-{
+carp_value carp_vm_run(carp_machine_state *m) {
     assert(m != NULL);
 
-    while (m->regs[CARP_RUN])
-    {
+    while (m->regs[CARP_RUN]) {
 #ifdef CDEBUG
         carp_value instr = m->code[m->regs[CARP_IP] + 1];
         printf("i: %s\n", carp_reverse_instr[instr]);
@@ -118,8 +108,7 @@ carp_value carp_vm_run(carp_machine_state *m)
 /*
   Increment the instruction pointer and return the next value in the code.
 */
-carp_value carp_vm_next(carp_machine_state *m)
-{
+carp_value carp_vm_next(carp_machine_state *m) {
     assert(m != NULL);
 
     return m->code[++m->regs[CARP_IP]];
@@ -129,8 +118,7 @@ carp_value carp_vm_next(carp_machine_state *m)
   Writes an error message to stderr, then signals for the machine
   to cleanly exit.
 */
-void carp_vm_err(carp_machine_state *m, const char *e)
-{
+void carp_vm_err(carp_machine_state *m, const char *e) {
     fprintf(stderr, "%s", e);
     putchar('\n');
     carp_vm_exit(m, EXIT_FAILURE);
@@ -139,8 +127,7 @@ void carp_vm_err(carp_machine_state *m, const char *e)
 /*
   Free the code, stack, variable table, and label table.
 */
-void carp_vm_cleanup(carp_machine_state *m)
-{
+void carp_vm_cleanup(carp_machine_state *m) {
     assert(m != NULL);
 
     free(m->code);
@@ -151,8 +138,7 @@ void carp_vm_cleanup(carp_machine_state *m)
 /*
   Change the machine state to OFF, clean up, and exit.
 */
-void carp_vm_exit(carp_machine_state *m, int code)
-{
+void carp_vm_exit(carp_machine_state *m, int code) {
     assert(m != NULL);
 
     m->regs[CARP_RUN] = 0;
@@ -175,13 +161,11 @@ void carp_vm_exit(carp_machine_state *m, int code)
  * 返回值 - 退出状态
  *
  */
-carp_value carp_run_program(const char *fn)
-{
+carp_value carp_run_program(const char *fn) {
     carp_machine_state m;
     carp_tok *tokens = carp_lex_tokenize(fn);
 
-    if (tokens == NULL)
-    {
+    if (tokens == NULL) {
         fprintf(stderr, "   .\n");
         exit(EXIT_FAILURE);
     }

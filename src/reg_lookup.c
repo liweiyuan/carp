@@ -92,12 +92,10 @@ register const char *str;
         CARP_R6,        CARP_REG_UNDEF, CARP_DX, CARP_R2,  CARP_REG_UNDEF,
         CARP_R5,        CARP_REG_UNDEF, CARP_CX, CARP_R1};
 
-    if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)
-    {
+    if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH) {
         register int key = hash(str, len);
 
-        if (key <= MAX_HASH_VALUE && key >= 0)
-        {
+        if (key <= MAX_HASH_VALUE && key >= 0) {
             register const char *s = wordlist[key];
 
             if (*str == *s && !strcmp(str + 1, s + 1))

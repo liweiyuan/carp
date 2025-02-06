@@ -1,7 +1,6 @@
 #include <carp/carp_machine.h>
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     char data[][CARP_HT_KEY_LENGTH] = {"max"};
 
     carp_value strp = (carp_value)&data[0];

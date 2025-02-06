@@ -1,7 +1,6 @@
 #include "tests_instr.h"
 
-int main()
-{
+int main() {
     carp_value val0 = 127;
     carp_value val1 = 32;
     carp_value reg0 = CARP_R0;

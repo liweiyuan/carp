@@ -1,7 +1,6 @@
 #include "tap.h"
 
-int main()
-{
+int main() {
     setvbuf(stdout, NULL, _IONBF, 0);
     note("note no new line");
     note("note new line\n");

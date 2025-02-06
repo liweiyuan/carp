@@ -10,15 +10,13 @@
 
 #define CARP_HT_KEY_LENGTH 15
 
-typedef struct carp_ht_entry_s
-{
+typedef struct carp_ht_entry_s {
     char key[CARP_HT_KEY_LENGTH];
     long long value;
     struct carp_ht_entry_s *next;
 } carp_ht_entry;
 
-typedef struct carp_ht_s
-{
+typedef struct carp_ht_s {
     long size, used;
     carp_ht_entry **buckets;
 } carp_ht;

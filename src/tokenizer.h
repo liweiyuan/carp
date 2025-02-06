@@ -8,8 +8,7 @@
 
 #define CARP_TOK_WORD_LENGTH 10
 
-typedef enum
-{
+typedef enum {
     CARP_TOK_UNDEF,
     CARP_TOK_NUM,
     CARP_TOK_REG,
@@ -21,8 +20,7 @@ typedef enum
 
 extern char carp_reverse_type[][6];
 
-typedef struct carp_tok_s
-{
+typedef struct carp_tok_s {
     char lexeme[CARP_TOK_WORD_LENGTH];
     carp_id type;
     carp_value pos;

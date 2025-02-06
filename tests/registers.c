@@ -1,8 +1,7 @@
 #include "../src/registers.h"
 #include "tests.h"
 
-int main()
-{
+int main() {
     carp_bool status = 0;
     carp_value regs[CARP_NUM_REGS];
     carp_value reg = 7;

@@ -20,8 +20,7 @@ This file is licensed under the GPLv2 or any later version
 #define AC_BAD(text) AC_CLR(RED, text)
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 #ifndef va_copy
@@ -36,25 +35,25 @@ extern "C"
 #include <stdio.h>
 #include <stdlib.h>
 
-    int vok_at_loc(const char *file, int line, int test, const char *fmt,
-                   va_list args);
-    int ok_at_loc(const char *file, int line, int test, const char *fmt, ...);
-    int is_at_loc(const char *file, int line, const char *got,
-                  const char *expected, const char *fmt, ...);
-    int isnt_at_loc(const char *file, int line, const char *got,
-                    const char *expected, const char *fmt, ...);
-    int cmp_ok_at_loc(const char *file, int line, int a, const char *op, int b,
-                      const char *fmt, ...);
-    int cmp_mem_at_loc(const char *file, int line, const void *got,
-                       const void *expected, size_t n, const char *fmt, ...);
-    int bail_out(int ignore, const char *fmt, ...);
-    void tap_plan(int tests, const char *fmt, ...);
-    int diag(const char *fmt, ...);
-    int note(const char *fmt, ...);
-    int exit_status(void);
-    void tap_skip(int n, const char *fmt, ...);
-    void tap_todo(int ignore, const char *fmt, ...);
-    void tap_end_todo(void);
+int vok_at_loc(const char *file, int line, int test, const char *fmt,
+               va_list args);
+int ok_at_loc(const char *file, int line, int test, const char *fmt, ...);
+int is_at_loc(const char *file, int line, const char *got, const char *expected,
+              const char *fmt, ...);
+int isnt_at_loc(const char *file, int line, const char *got,
+                const char *expected, const char *fmt, ...);
+int cmp_ok_at_loc(const char *file, int line, int a, const char *op, int b,
+                  const char *fmt, ...);
+int cmp_mem_at_loc(const char *file, int line, const void *got,
+                   const void *expected, size_t n, const char *fmt, ...);
+int bail_out(int ignore, const char *fmt, ...);
+void tap_plan(int tests, const char *fmt, ...);
+int diag(const char *fmt, ...);
+int note(const char *fmt, ...);
+int exit_status(void);
+void tap_skip(int n, const char *fmt, ...);
+void tap_todo(int ignore, const char *fmt, ...);
+void tap_end_todo(void);
 
 #define NO_PLAN -1
 #define SKIP_ALL -2
@@ -70,10 +69,8 @@ extern "C"
 #define fail(...) ok(0, "" __VA_ARGS__)
 
 #define skip(test, ...)                                                        \
-    do                                                                         \
-    {                                                                          \
-        if (test)                                                              \
-        {                                                                      \
+    do {                                                                       \
+        if (test) {                                                            \
             tap_skip(__VA_ARGS__, NULL);                                       \
             break;                                                             \
         }
@@ -102,14 +99,12 @@ int like_at_loc(int for_match, const char *file, int line, const char *got,
 #include <unistd.h>
 int tap_test_died(int status);
 #define dies_ok_common(for_death, code, ...)                                   \
-    do                                                                         \
-    {                                                                          \
+    do {                                                                       \
         int cpid;                                                              \
         int it_died;                                                           \
         tap_test_died(1);                                                      \
         cpid = fork();                                                         \
-        switch (cpid)                                                          \
-        {                                                                      \
+        switch (cpid) {                                                        \
         case -1:                                                               \
             perror("fork error");                                              \
             exit(1);                                                           \
@@ -119,14 +114,12 @@ int tap_test_died(int status);
             code tap_test_died(0);                                             \
             exit(0);                                                           \
         }                                                                      \
-        if (waitpid(cpid, NULL, 0) < 0)                                        \
-        {                                                                      \
+        if (waitpid(cpid, NULL, 0) < 0) {                                      \
             perror("waitpid error");                                           \
             exit(1);                                                           \
         }                                                                      \
         it_died = tap_test_died(0);                                            \
-        if (!it_died)                                                          \
-        {                                                                      \
+        if (!it_died) {                                                        \
             code                                                               \
         }                                                                      \
         ok(for_death ? it_died : !it_died, "" __VA_ARGS__);                    \

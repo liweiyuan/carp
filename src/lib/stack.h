@@ -9,8 +9,7 @@
 
 #include "types.h"
 
-typedef struct carp_stack
-{
+typedef struct carp_stack {
     carp_value max_height;
     carp_value *height;
     carp_value *contents;

@@ -8,8 +8,7 @@
 #include "instructions.h"
 #include "registers.h"
 
-typedef struct carp_machine_state_s
-{
+typedef struct carp_machine_state_s {
     carp_value regs[CARP_NUM_REGS];
     carp_stack stack;
     carp_ht vars;

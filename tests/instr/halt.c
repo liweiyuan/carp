@@ -1,7 +1,6 @@
 #include "tests_instr.h"
 
-int main()
-{
+int main() {
     carp_value code0[] = {CARP_I(HALT), EXIT_SUCCESS};
     carp_value code1[] = {CARP_I(HALT), EXIT_FAILURE};
 

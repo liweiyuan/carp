@@ -1,7 +1,6 @@
 #include "tests_instr.h"
 
-int main()
-{
+int main() {
     carp_value val = 127;
     carp_value code[] = {
         CARP_I(LOADR), CARP_R0,     val,
