@@ -1,0 +1,8 @@
+main:
+    load r0 10
+    load r1 20
+    add
+    push r0
+    push r1
+    add
+    halt
