@@ -1,6 +1,7 @@
 #include "tap.h"
 
-int main () {
+int main()
+{
     setvbuf(stdout, NULL, _IONBF, 0);
     plan(9);
     cmp_ok(420, ">", 666);
@@ -14,4 +15,3 @@ int main () {
     cmp_ok(55, "%", 5);
     done_testing();
 }
-

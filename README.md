@@ -132,6 +132,7 @@ Another way:
 
 1. Write some code for a feature you want to exist and submit a pull request.
 
-## License
+## 格式化代码
 
-GPLv3. See [LICENSE.txt](http://github.com/tekknolagi/carp/tree/master/LICENSE.txt).
+1. find . -iname "*.c" -o -iname "*.h" | xargs clang-format -i
+

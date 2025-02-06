@@ -4,7 +4,7 @@
 #define CARP_VM_NO_MAIN "Could not find main."
 
 #define CARP_EXIT_STACK_FAILED "Could not initialize stack."
-#define CARP_STACK_NO_MEM  "Not enough memory."
+#define CARP_STACK_NO_MEM "Not enough memory."
 #define CARP_STACK_EMPTY "Carp stack is empty."
 
 #define CARP_HT_DNE "Variable not defined."

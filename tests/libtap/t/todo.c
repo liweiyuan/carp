@@ -1,6 +1,7 @@
 #include "tap.h"
 
-int main () {
+int main()
+{
     setvbuf(stdout, NULL, _IONBF, 0);
     plan(6);
     todo();
@@ -15,4 +16,3 @@ int main () {
     end_todo;
     done_testing();
 }
-
