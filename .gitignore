@@ -9,3 +9,4 @@
 carp.out
 carp
 !examples/carp
+.vscode/*

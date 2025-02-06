@@ -123,6 +123,7 @@ char *file_read(const char *fn) {
     size_t fsize;
     size_t nread;
 
+    printf("Attempting to open file: %s\n", fn);
     fp = fopen(fn, "r");
     if (!fp) {
         fprintf(stderr, "Could not open file `%s' for reading: %s\n", fn,
