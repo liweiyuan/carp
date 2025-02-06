@@ -19,6 +19,13 @@ static void carp_lex_exit(carp_tok *, carp_ht *, int);
   LBL is NOP instr.
   FUNC is label lookup value.
   INSTR is obvious.
+
+  对一系列tokens进行值分配。
+  NUM是明显的。
+  REG是明显的。
+  LBL是NOP指令。
+  FUNC是标签查找值。
+  INSTR是明显的。
 */
 void carp_lex_lex(carp_machine_state *m, carp_tok *tokens) {
     assert(m != NULL);

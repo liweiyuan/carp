@@ -26,6 +26,7 @@ static carp_bool is_instr(const char *);
 /* Reads a whole file into memory (really should change to
  * line-by-line), then goes through and copies lexemes, types, and
  * program positions in.
+ * 将整个文件读入内存（真的应该改为逐行），然后遍历并复制词素、类型和程序位置。
  */
 carp_tok *carp_lex_tokenize(const char *fn) {
     assert(fn != NULL);
