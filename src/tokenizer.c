@@ -6,6 +6,7 @@
 #include <string.h>
 
 #include "instructions.h"
+#include "lib/types.h"
 #include "registers.h"
 #include "tokenizer.h"
 
@@ -113,13 +114,86 @@ carp_tok *carp_lex_tokenize(const char *fn) {
 
     return head;
 }
+/**
+ *
+ * 按行读取，生成tokens
+ */
+carp_tok *carp_lex_tokenize_by_line(const char *fn) {
+    assert(fn != NULL);
+    FILE *fp = fopen(fn, "r");
+    assert(fp != NULL);
+
+    const char *delim = " ,\t\n";
+    /*假设每行最大256*/
+    char line[256]; 
+    carp_tok *head = NULL, *tail= NULL;
+    carp_value i =0;
+
+    while(fgets(line, sizeof(line), fp)){
+        //去掉换行符
+        line[strcspn(line, "\n")] = '\0';
+        char *toks = strtok(line, delim);
+        while(toks != NULL){
+            carp_tok *parsed = malloc(sizeof(carp_tok));
+            if(parsed == NULL){
+                fclose(fp);
+                fprintf(stderr, "Could not allocate memory for token\n");
+                return NULL;
+            }
+            // 识别 token 类型
+            if (is_num(toks)) {
+                parsed->type = CARP_TOK_NUM;
+            } else if (is_reg(toks)) {
+                parsed->type = CARP_TOK_REG;
+            } else if (is_label(toks)) {
+                parsed->type = CARP_TOK_LBL;
+            } else if (is_var(toks)) {
+                parsed->type = CARP_TOK_VAR;
+            } else if (is_instr(toks)) {
+                parsed->type = CARP_TOK_INSTR;
+            } else {
+                parsed->type = CARP_TOK_UNDEF;
+            }
+
+            // 处理 lexeme
+            size_t toks_len = strlen(toks);
+            if (parsed->type == CARP_TOK_LBL) {
+                memcpy(parsed->lexeme, toks, toks_len - 1);
+                parsed->lexeme[toks_len - 1] = 0;  // 去掉冒号
+            } else if (parsed->type == CARP_TOK_VAR) {
+                memcpy(parsed->lexeme, toks + 1, toks_len - 1);
+                parsed->lexeme[toks_len - 1] = 0;  // 去掉前缀 $
+            } else {
+                memcpy(parsed->lexeme, toks, toks_len);
+                parsed->lexeme[toks_len] = 0;  // 添加字符串结束符
+            }
+
+            parsed->pos = i++;
+            parsed->next = NULL;
+
+            // 将 token 添加到链表
+            if (head == NULL) {
+                head = parsed;  // 第一个 token
+                tail = parsed;
+            } else {
+                tail->next = parsed;  // 将新 token 连接到链表尾部
+                tail = parsed;
+            }
+
+            toks = strtok(NULL, delim);
+        }
+    }
+    fclose(fp);
+    return head;
+}
 
 /* Reads a whole file and returns a pointer to its contents. */
 char *file_read(const char *fn) {
     assert(fn != NULL);
 
     FILE *fp;
-    char *contents;
+    /* 指向一个char类型的指针*/
+    char *contents;  
     size_t fsize;
     size_t nread;
 
@@ -136,6 +210,7 @@ char *file_read(const char *fn) {
     fsize = ftell(fp);
     fseek(fp, 0, SEEK_SET);
 
+/* 这行代码实际上是将 fsize 乘以一个字符的大小,用于后续申请内存的大小*/
     fsize *= sizeof *contents;
 
     /* + 1 is for the NULL terminator */

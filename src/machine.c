@@ -163,7 +163,7 @@ void carp_vm_exit(carp_machine_state *m, int code) {
  */
 carp_value carp_run_program(const char *fn) {
     carp_machine_state m;
-    carp_tok *tokens = carp_lex_tokenize(fn);
+    carp_tok *tokens = carp_lex_tokenize_by_line(fn);
 
     if (tokens == NULL) {
         fprintf(stderr, "   .\n");
