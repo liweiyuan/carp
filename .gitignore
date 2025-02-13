@@ -13,3 +13,5 @@ carp
 
 build/
 compile_commands.json
+
+.cache/
