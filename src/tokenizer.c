@@ -19,6 +19,7 @@ carp_instr in_instr_set(register const char *str);
 static char *file_read(const char *);
 static carp_bool is_sign(char);
 static carp_bool is_num(const char *);
+static carp_bool is_number(const char *);
 static carp_bool is_reg(const char *);
 static carp_bool is_label(const char *);
 static carp_bool is_var(const char *);
@@ -116,7 +117,7 @@ carp_tok *carp_lex_tokenize(const char *fn) {
 }
 /**
  *
- * 按行读取，生成tokens
+ * 按行读取，生成tokens(是一个carp_tok链表)
  */
 carp_tok *carp_lex_tokenize_by_line(const char *fn) {
     assert(fn != NULL);
@@ -141,7 +142,7 @@ carp_tok *carp_lex_tokenize_by_line(const char *fn) {
                 return NULL;
             }
             // 识别 token 类型
-            if (is_num(toks)) {
+            if (is_number(toks)) {
                 parsed->type = CARP_TOK_NUM;
             } else if (is_reg(toks)) {
                 parsed->type = CARP_TOK_REG;
@@ -252,6 +253,22 @@ carp_bool is_num(const char *s) {
         if (!isdigit((unsigned char)s[i]))
             return 0;
 
+    return 1;
+}
+
+/*使用标准库去判断是否全是数字 */
+carp_bool is_number(const char *str) {
+    assert(str != NULL);
+    // 检查是否有符号
+    if (*str == '+' || *str == '-') {
+        str++;
+    }
+    while (*str) {
+        if (!isdigit((unsigned char)*str)) {
+            return 0;
+        }
+        str++;
+    }
     return 1;
 }
 
