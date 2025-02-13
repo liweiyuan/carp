@@ -10,6 +10,9 @@ LDFLAGS += -lm
 MAIN_SRCS = src/main.c
 MAIN_OBJS = $(MAIN_SRCS:.c=.o)
 
+# 编译命令文件
+# COMPILE_COMMANDS = compile_commands.json
+
 # We use carp_* to avoid including carp.c (main)
 LIB_SRCS = $(shell echo src/*.c src/lib/*.c)
 LIB_HDRS = $(shell echo src/*.h src/lib/*.h)
@@ -35,7 +38,7 @@ endif
 .PHONY: all clean libtap libtap_clean test install uninstall
 all: $(BIN)
 
-$(BIN): $(MAIN_OBJS) $(LIB)
+$(BIN): $(MAIN_OBJS) $(LIB) 
 	$(CC) $(LDFLAGS) $^ -o $@
 
 $(LIB): $(LIB_OBJS)
@@ -44,6 +47,7 @@ $(LIB): $(LIB_OBJS)
 src/lib/%.o: src/lib/%.c $(LIB_HDRS)
 src/%.o: src/%.c $(LIB_HDRS)
 	$(CC) $(CFLAGS) -c $< -o $@
+
 
 clean: libtap_clean bin_clean
 	rm -rf $(MAIN_OBJS) $(BIN) $(LIB_OBJS) $(LIB) $(TEST_BINS) $(TEST_OBJS)
